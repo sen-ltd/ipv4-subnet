@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPv4 サブネット計算機</title>
+  <meta name="description" content="IPv4 subnet calculator with binary visualization, host ranges, and subnet splitting. Japanese / English." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-title-group">
+        <h1 data-i18n="title">IPv4 サブネット計算機</h1>
+        <p class="subtitle" data-i18n="subtitle">ネットワーク・ホスト範囲・バイナリ可視化・サブネット分割</p>
+      </div>
+      <div class="header-controls">
+        <button id="langBtn"  class="ctrl-btn" aria-label="Toggle language">EN</button>
+        <button id="themeBtn" class="ctrl-btn" aria-label="Toggle theme" data-i18n-title="theme">☀</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ── Input ── -->
+    <section class="input-section card">
+      <label class="input-label" for="ipInput" data-i18n="inputLabel">IP アドレス / CIDR</label>
+      <div class="input-row">
+        <input
+          id="ipInput"
+          type="text"
+          class="ip-input"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
+          data-i18n-placeholder="inputPlaceholder"
+          placeholder="例: 192.168.1.100/24  または  10.0.0.1 255.0.0.0"
+        />
+        <button id="calcBtn"  class="btn btn--primary"  data-i18n="calculate">計算</button>
+        <button id="clearBtn" class="btn btn--secondary" data-i18n="clear">クリア</button>
+      </div>
+      <div class="example-row">
+        <button class="example-btn" data-value="192.168.1.100/24">192.168.1.100/24</button>
+        <button class="example-btn" data-value="10.0.0.1/8">10.0.0.1/8</button>
+        <button class="example-btn" data-value="172.16.0.1/12">172.16.0.1/12</button>
+        <button class="example-btn" data-value="192.168.1.0/30">192.168.1.0/30</button>
+        <button class="example-btn" data-value="10.0.0.0/31">10.0.0.0/31</button>
+        <button class="example-btn" data-value="8.8.8.8/32">8.8.8.8/32</button>
+      </div>
+      <p id="inputError" class="msg" role="alert"></p>
+    </section>
+
+    <!-- ── Results ── -->
+    <section id="resultsSection" class="hidden">
+
+      <!-- Results grid -->
+      <div class="section-header">
+        <h2 data-i18n="results">計算結果</h2>
+      </div>
+      <div id="resultsGrid" class="results-grid"></div>
+
+      <!-- Binary visualization -->
+      <div class="card binary-card">
+        <h3 data-i18n="binaryView">バイナリ表示</h3>
+        <div id="binaryViz" class="binary-viz"></div>
+      </div>
+
+      <!-- IP Range Check -->
+      <div class="card panel">
+        <h3 data-i18n="ipInRange">IP 範囲チェック</h3>
+        <div class="panel-row">
+          <input
+            id="rangeIp"
+            type="text"
+            class="panel-input"
+            data-i18n-placeholder="ipToCheck"
+            placeholder="確認する IP"
+            autocomplete="off"
+            autocapitalize="none"
+          />
+          <button id="rangeCheckBtn" class="btn btn--primary" data-i18n="checkBtn">確認</button>
+        </div>
+        <p id="rangeResult" class="msg" role="status"></p>
+      </div>
+
+      <!-- Subnet Split -->
+      <div class="card panel">
+        <h3 data-i18n="subnetSplit">サブネット分割</h3>
+        <div class="panel-row">
+          <label class="panel-label" for="splitCidr" data-i18n="splitTo">分割先 CIDR</label>
+          <input id="splitCidr" type="number" class="panel-input panel-input--short" min="1" max="32" value="25" />
+          <button id="splitBtn" class="btn btn--primary" data-i18n="splitBtn">分割</button>
+        </div>
+        <p id="splitResult" class="msg" role="status"></p>
+        <ul id="splitList" class="split-list"></ul>
+      </div>
+
+    </section>
+
+    <!-- ── CIDR Reference Table ── -->
+    <section class="card">
+      <h2 data-i18n="cidrTable">CIDR 参照表</h2>
+      <div class="table-scroll">
+        <table class="cidr-table">
+          <thead>
+            <tr>
+              <th data-i18n="cidrCol">CIDR</th>
+              <th data-i18n="maskCol">サブネットマスク</th>
+              <th data-i18n="hostsCol">使用可能ホスト数</th>
+              <th data-i18n="subnetsOf24">/24 あたりのサブネット数</th>
+            </tr>
+          </thead>
+          <tbody id="cidrTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>IPv4 Subnet Calculator · <a href="https://github.com/masaru87/ipv4-subnet" target="_blank" rel="noopener">GitHub</a> · <a href="https://sen.ltd" target="_blank" rel="noopener">SEN LLC</a></p>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
