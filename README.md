@@ -50,3 +50,10 @@ tests/
 ## License
 
 MIT — Copyright (c) 2026 SEN LLC (SEN 合同会社)
+
+<!-- sen-publish:links -->
+## Links
+
+- 🌐 Demo: https://sen.ltd/portfolio/ipv4-subnet/
+- 📝 dev.to: https://dev.to/sendotltd/an-ipv4-subnet-calculator-with-binary-visualization-and-31-handling-13jn
+<!-- /sen-publish:links -->
